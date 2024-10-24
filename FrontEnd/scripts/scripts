@@ -1,4 +1,4 @@
-// Fonction pour appeler les info du backend et faire une boucle avec tout les éléments //
+// Fonction pour appeler les info du works du backend et faire une boucle avec tout les éléments //
 async function getWorks() {
     const url = 'http://localhost:5678/api/works';
     try {
@@ -19,6 +19,7 @@ async function getWorks() {
 
 getWorks();
 
+// Fonction pour injecter une figure sur le html //
 function setFigure(data) {
     const figure = document.createElement("figure");
     figure.innerHTML = `<img src=${data.imageUrl} alt=${data.title}>
