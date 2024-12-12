@@ -95,6 +95,15 @@ nav li {
 	font-size: 1.2em;
 }
 
+nav li a,#login a {
+	text-decoration: none;
+	color: black;
+}
+
+nav li a:hover {
+	color: #B1663C;
+}
+
 li:hover {
 	color: #B1663C;
 }
@@ -137,36 +146,51 @@ li:hover {
 	width: 100%;
 
 }
-#contact {
+#contact,
+#login {
 	width: 50%;
-margin: auto;
+	margin: auto;
 }
-#contact > * {
-	text-align: center;
 
+#contact > *,
+#login > * {
+	text-align: center;
 }
-#contact h2{
+
+#contact h2,
+#login h2 {
 	margin-bottom: 20px;
 }
-#contact form {
+
+#contact form,
+#login form {
 	text-align: left;
-	margin-top:30px;
+	margin-top: 30px;
 	display: flex;
 	flex-direction: column;
 }
 
-#contact input {
+#contact input,
+#login input, #add-work input, #add-work select {
 	height: 50px;
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
-#contact label {
+
+#contact label,
+#login label {
 	margin: 2em 0 1em 0;
 }
-#contact textarea {
+
+#contact textarea,
+#login textarea {
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+#login p{
+	align-self: center;
 }
 
 input[type="submit"]{
@@ -186,3 +210,275 @@ footer nav ul {
 	margin: 2em
 }
 
+/* Partie barre de filtre */
+
+.filter-bar{
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+}
+
+.filter-bar input{
+	all: unset;
+	font-family: 'Syne';
+	font-size: 16px;
+	font-weight: 700;
+	color: #1D6154; 
+	padding: 10px 29px;
+	margin: 30px 0 50px 0;
+	border: solid #1D6154 1px;
+	border-radius: 18.5px;
+	cursor: pointer;
+}
+
+.filter-bar input:hover{
+	color: white;
+	background-color: #1D6154;
+}
+
+.filter-bar input.active{
+	color: white;
+	background-color: #1D6154;
+}
+
+.error-login{
+	background-color: #ac3d3b;
+	color: white;
+	display: flex;
+	justify-content: center;
+	padding: 10px;
+	margin-top: 20px;
+}
+
+.edit-mode{	
+	background-color: black;
+	color: white;
+	height: 50px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100vw;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
+#portfolio span{
+	color: black;
+	font-family:'Work Sans';
+	font-size: 14px;
+	font-weight: 400;
+	margin-left: 20px;
+}
+
+.modal-trigger{
+	cursor: pointer;
+}
+
+.modal-container {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+}
+
+.modal-container.active{
+	display: block;
+}
+
+.overlay {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: #3333337e;
+}
+
+.modal-body { 
+	width: 95%;
+	max-width: 600px;
+	min-width: 300px;
+	display: flex; 
+	flex-direction: column;
+	align-items: center;
+	gap: 30px;
+	padding: 50px 105px;
+	background: #fff;
+	border-radius: 10px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.modal-container .close-modal{
+	padding: 5px;
+	position: absolute;
+	border: none;
+	background-color: white;
+	top: 25px;
+	right: 25px;
+	cursor: pointer;
+}
+
+.modal-container .return-modal{
+	font-size: 24px;
+	padding: 0;
+	position: absolute;
+	border: none;
+	background-color: white;
+	top: 25px;
+	left: 25px;
+	cursor: pointer;
+}
+
+.return-modal{
+	left: 25px;
+}
+
+.modal-body h1 {
+	font-family: work Sans;
+	font-size: 26px;
+	color: black;
+	font-weight: 400;
+	margin-top: 20px;
+}
+
+.button-add-picture{
+	all: unset;
+	height: 36px;
+	background-color: #1D6154;
+	font-family: Syne;
+	color: #fff;
+	border: none;
+	padding: 0 50px;
+	border-radius: 18px;
+	cursor: pointer;
+}
+
+.modal-body .container{
+	width: 100%;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	grid-column-gap: 10px;
+	grid-row-gap: 20px;
+	padding: 30px 0;
+	border-bottom: solid #333333 1px ;
+}
+
+.modal-body .form-container{
+	padding: 30px 0;
+}
+
+.modal-body label {
+	margin-top: 20px
+}
+
+.container img{
+	width: 100%;
+}
+
+.container div button {
+	font-size: 9px;
+	color: #fff;
+	padding: 4px 4px;
+	position: relative;
+	border: none;
+	background-color: black;
+	top: -147px;
+	right: -90px;
+	cursor: pointer;
+}
+
+.file-upload {
+	position: relative;
+	width: 420px;
+	height: 170px;
+	margin-bottom: 10px;
+	border-radius: 3px;
+	background-color: #e9f0f7;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+}
+
+.file-upload:hover {
+	background-color: #dbe4ed;
+}
+
+.file-upload i {
+	font-size: 60px;
+	color: #B9C5CC;
+	margin-bottom: 10px;
+}
+
+form input[type="file"] {
+	position: absolute;
+	width: 1px;
+	height: 100%;
+	top: 0;
+	left: 0;
+	opacity: 0;
+	cursor: pointer;
+}
+
+.file-upload p {
+	padding: 10px 30px;
+	border-radius: 20px;
+	margin: 0;
+	font-size: 16px;
+	color: #306685;
+	background-color: #CBD6DC;
+}
+
+.file-upload small {
+	font-size: 10px;
+	margin-top: 10px;
+	color: #444444;
+}
+
+.modal-body .form-container form{
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	
+}
+
+#add-work select,#add-work input{
+	font-family: work Sans;
+	font-size: 1em;
+	color: #444444;
+
+}
+
+#add-work label{
+	color: #3D3D3D ;
+}
+
+.add-picture-submit{
+	all: unset;
+	align-self: center;
+	height: 36px;
+	width: 137px;
+	background-color: #A7A7A7;
+	font-family: Syne;
+	color: #fff;
+	text-align: center;
+	border: none;
+	margin-top: 20px;
+	padding: 0 50px;
+	border-radius: 18px;
+	
+}
+
+.add-picture-submit.active{
+	background-color: #1D6154;
+	cursor: pointer;
+}
+
+#add-work #categorie-choice{
+	margin-bottom: 30px;
+}
