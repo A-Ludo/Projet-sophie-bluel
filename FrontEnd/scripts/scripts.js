@@ -1,19 +1,15 @@
 let works = []
 let categories = []
-//centraliser URL
+const baseUrl = 'http://localhost:5678/api/'
 
 async function getWorks() {
-    const url = 'http://localhost:5678/api/works';
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`Response status: ${response.status}`);
-        }
-        works = await response.json();
-        displayFigures(works)        
-    } catch (error) {
-        console.error(error.message);
+    const url = `${baseUrl}works`;
+    const response = await fetch(url);
+    if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
     }
+    works = await response.json();
+    displayFigures(works)        
 }
 
 function filterWorks (filter) {
@@ -42,27 +38,20 @@ function displayFigureModal(data) {
 }
 
 async function deleteWork(work) {
-    const url = `http://localhost:5678/api/works/${work.id}`; 
+    const url = `${baseUrl}works/${work.id}`; 
     const token = sessionStorage.getItem("authToken");
-    try {
-        const response = await fetch(url, {
-            method: 'DELETE',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json'
-            }
-        });
-        if (response.ok) {
-            console.log("Travail supprimé avec succès :", work.id);
-            await getWorks();
-            displayFiguresModal(works)
-        } else {
-            console.error("Échec de la suppression :", response.status);
-            alert("Erreur lors de la suppression du travail.");
+    const response = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
         }
-    } catch (error) {
-        console.error("Erreur lors de la requête DELETE :", error);
-        alert("Une erreur est survenue lors de la suppression.");
+    });
+    if (response.ok) {
+        await getWorks();
+        displayFiguresModal(works)
+    } else {
+        alert("Erreur lors de la suppression du travail.");
     }
 }
 
@@ -81,17 +70,13 @@ function displayFiguresModal(works){
 }
 
 async function getFilter() {
-    const url = 'http://localhost:5678/api/categories';
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error(`Response status: ${response.status}`);
-        }
-        categories = await response.json();
-        displayFilters(categories)
-    } catch (error) {
-        console.error(error.message);
+    const url = `${baseUrl}categories`;
+    const response = await fetch(url);
+    if (!response.ok) {
+         throw new Error(`Response status: ${response.status}`);
     }
+    categories = await response.json();
+    displayFilters(categories)
 }
 
 function displayFilters(filters) {
@@ -104,7 +89,6 @@ function displayFilters(filters) {
         document.querySelectorAll(".filter-bar input").forEach(btn => btn.classList.remove("active"));
         filter.classList.add("active");
         displayFigures(works)});
-
     for (let i = 0; i < filters.length; i++) {
         setFilter(filters[i]);
     }
@@ -123,12 +107,8 @@ function setFilter(data) {
 })};
 
 async function filteredWorks() {
-    try {
-        const data = await fetchData(); 
-        processData(data); 
-    } catch (error) {
-
-    }
+    const data = await fetchData(); 
+    processData(data); 
 }
 
 function displayAdminMode() {
@@ -151,10 +131,9 @@ getWorks();
 getFilter();
 displayAdminMode();
 
-// partie création modale V2// Modale 1
+// partie création modale // Modale 1
 
-function createModalPictureEdit() {
-    
+function createModalPictureEdit() {  
     const modal = document.querySelector('.modal-body');
 
     const closeButton = document.createElement('button');
@@ -190,10 +169,9 @@ function createModalPictureEdit() {
     overlay.insertAdjacentElement('afterend', modal);
 }
 
-// partie création modale V2// Modale 2
+// partie création modale// Modale 2
 
 function createModalAddPicture() {
-
     const modal = document.querySelector('.modal-body');
     
     const returnButton = document.createElement('button');
@@ -288,7 +266,7 @@ function createModalAddPicture() {
     overlay.insertAdjacentElement('afterend', modal);
 }
 
-// partie création modale V2// Reset modale
+// partie création modale // Reset modale
 
 function resetModalContainer() {
     const modalContainer = document.querySelector('.modal-body');
@@ -438,24 +416,19 @@ function handleFileChange(event) {
         formData.append('category', categoryId);
         formData.append('image', fileInput.files[0]);
       
-        try {
-          const response = await fetch("http://localhost:5678/api/works", {
-            method: "POST",
-            headers: {
-              "Authorization": `Bearer ${token}`
-            },
-            body: formData,
-          });
-      
-          if (response.ok) {
-            const result = await response.json();
-            modalContainer.classList.remove("active")
-            resetModalContainer()
-            getWorks()
-          } else {
-            alert("Erreur lors de l'ajout du travail.");
-          }
-        } catch (error) {
-          alert("Une erreur est survenue lors de l'ajout du travail.");
+        const response = await fetch(`${baseUrl}works`, {
+        method: "POST",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        },
+        body: formData,
+        });      
+        if (response.ok) {
+        const result = await response.json();
+        modalContainer.classList.remove("active")
+        resetModalContainer()
+        getWorks()
+        } else {
+        alert("Erreur lors de l'ajout du travail.");
         }
     }
